@@ -2,43 +2,31 @@
 type UserAvatarProps = {
   name?: string;
   imageUrl?: string;
-  size?: number;
+  size?: "sm" | "md" | "lg";
+};
+
+const sizeClasses = {
+  sm: "h-8 w-8 text-sm",
+  md: "h-10 w-10 text-base",
+  lg: "h-20 w-20 text-3xl",
 };
 
 export function UserAvatar({
-  name = "User",
+  name = "Student",
   imageUrl,
-  size = 48,
+  size = "md",
 }: UserAvatarProps) {
-  const initial = name.trim().charAt(0).toUpperCase() || "U";
+  const initial = name.trim().charAt(0).toUpperCase() || "S";
 
   return (
     <div
-      className="user-avatar"
-      style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-        background: "linear-gradient(135deg, #6366f1, #a855f7)",
-        color: "#ffffff",
-        fontSize: size * 0.42,
-        fontWeight: 700,
-      }}
+      className={`flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 font-bold text-white ${sizeClasses[size]}`}
     >
       {imageUrl ? (
         <img
           src={imageUrl}
           alt={`${name}'s avatar`}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
+          className="h-full w-full object-cover"
         />
       ) : (
         initial
